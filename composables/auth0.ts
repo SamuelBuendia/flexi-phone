@@ -7,7 +7,6 @@ const auth0Info = () => {
     isLoading,
     loginWithRedirect,
     logout,
-    checkSession,
   } = useAuth0();
   return {
     user,
@@ -15,7 +14,6 @@ const auth0Info = () => {
     isLoading,
     loginWithRedirect,
     logout,
-    checkSession,
   };
 };
 

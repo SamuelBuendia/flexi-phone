@@ -9,7 +9,7 @@ const { isLoading } = auth0Info();
 <template>
   <div v-if="!isLoading">
     <NuxtLayout>
-      <!-- <NuxtPage /> -->
+      <NuxtPage />
     </NuxtLayout>
   </div>
   <div v-if="isLoading">
