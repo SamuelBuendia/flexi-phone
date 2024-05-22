@@ -9,10 +9,10 @@ export async function getAllProducts() {
     }
 
     const productsFormat = await response.json();
-    
+
     return productsFormat;
   } catch (error) {
-    console.error("Error fetching products:", error);
+    throw new Error(`Error service fetching products: ${JSON.stringify(error)}`);
   }
 }
 
@@ -28,6 +28,6 @@ export async function getProduct(productId: string) {
 
     return productsFormat;
   } catch (error) {
-    console.log(error);
+    throw new Error(`Error service fetching product: ${JSON.stringify(error)}`);
   }
 }
