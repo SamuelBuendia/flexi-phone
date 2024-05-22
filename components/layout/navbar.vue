@@ -1,4 +1,5 @@
 <template>
+    <Alert :title="'Restricted Access'" :message="'You Need to Log In'" />
     <Disclosure as="nav" class="bg-gray-300 dark:bg-gray-800" v-slot="{ open }">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
@@ -20,10 +21,10 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            <nuxt-link v-if="isAuthenticated" v-for="item in navigation" :key="item.name" :to="item.to"
+                            <nuxt-link v-for="item in navigation" :key="item.name" :to="item.to"
                                 :class="[item.current ? ' text-white dark:bg-gray-800' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']"
                                 :aria-current="item.current ? 'page' : undefined">
-                                <span
+                                <span @click="handleShowNotificacion()"
                                     class="text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-200">
                                     {{ item.name }}
                                 </span>
@@ -101,10 +102,13 @@
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { useAlertState } from '@/composables/alert';
 import { type LogoutOptions } from '@auth0/auth0-vue';
 import auth0Info from "~/composables/auth0";
 
 const { user, isAuthenticated, loginWithRedirect, logout } = auth0Info();
+
+const { alertState } = useAlertState();
 
 const login = () => loginWithRedirect();
 const logoutOut = () => logout({ returnTo: window.location.origin } as LogoutOptions);
@@ -115,6 +119,12 @@ const setColorTheme = (newTheme: Theme) =>
 const navigation = [
     { name: 'Products', to: '/products', current: true }
 ]
+
+function handleShowNotificacion() {
+    !isAuthenticated.value ?
+        alertState.value = true
+        : null
+}
 
 </script>
 
