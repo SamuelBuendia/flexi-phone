@@ -33,10 +33,9 @@
                     </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    <button v-if="!isAuthenticated" @click="login"
-                        class="mr-3 transition duration-500 hover:scale-110 ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                        Login
-                    </button>
+                    <loginButton
+                        :class="'mr-3 transition duration-500 hover:scale-110 ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700'"
+                        :text="'Login'" />
                     <button class="md:block ml-2"
                         @click="setColorTheme($colorMode.preference == 'dark' ? 'light' : 'dark')">
                         <svg v-if="$colorMode.value == 'dark'" xmlns="http://www.w3.org/2000/svg"
@@ -106,11 +105,10 @@ import { useAlertState } from '@/composables/alert';
 import { type LogoutOptions } from '@auth0/auth0-vue';
 import auth0Info from "~/composables/auth0";
 
-const { user, isAuthenticated, loginWithRedirect, logout } = auth0Info();
+const { user, isAuthenticated, logout } = auth0Info();
 
 const { alertState } = useAlertState();
 
-const login = () => loginWithRedirect();
 const logoutOut = () => logout({ returnTo: window.location.origin } as LogoutOptions);
 
 const setColorTheme = (newTheme: Theme) =>
